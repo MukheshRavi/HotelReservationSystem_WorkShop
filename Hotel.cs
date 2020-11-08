@@ -9,6 +9,7 @@ namespace HotelReservationSystem
         public string hotelName;
         public int weekDayRate;
         public int weekEndRate;
+        public int totalFare;
         public List<Hotel> hotelsList = new List<Hotel>();
         public Hotel() { }
         public Hotel(string name)
@@ -50,7 +51,7 @@ namespace HotelReservationSystem
             Console.WriteLine("HotelName  WeekDayRate  WeekEndRate");
             foreach (Hotel hotel in hotelsList)
             {
-                Console.WriteLine(hotel.hotelName + " " + hotel.weekDayRate+" "+hotel.weekEndRate);
+                Console.WriteLine(hotel.hotelName + "   " + hotel.weekDayRate+"   "+hotel.weekEndRate);
             }
 
         }
@@ -62,21 +63,27 @@ namespace HotelReservationSystem
         /// <returns></returns>
         public List<int> GetTotalFare(DateTime startDate, DateTime endDate)
         {
-            List<int> FareList = new List<int>();
+            AddHotel();
+            List<int> fareList = new List<int>();
+            DateTime start = startDate;
             // Continue loop till all the dates are covered
             foreach (Hotel hotel in hotelsList)
             {
-                int totalFare = 0;
+                startDate = start;
+                totalFare = 0;
                 ///calculating total fare for all hotels in HotelsList
                 while (startDate != endDate.AddDays(1))
                 {
-                    totalFare += hotel.weekDayRate;
+                    if (startDate.DayOfWeek == DayOfWeek.Saturday || startDate.DayOfWeek == DayOfWeek.Sunday)
+                        totalFare += hotel.weekEndRate;
+                    else
+                        totalFare += hotel.weekDayRate;
                     startDate = startDate.AddDays(1);
                 }
-                FareList.Add(totalFare);
+                hotel.totalFare = totalFare;
+                fareList.Add(totalFare);
             }
-            return FareList;
-
+            return fareList;
         }
         /// <summary>
         /// This method internally calls GetTotalFare method
@@ -85,25 +92,42 @@ namespace HotelReservationSystem
         /// <param name="startDate"></param>
         /// <param name="endDate"></param>
         /// <returns></returns>
-        public string GetCheapHotel(DateTime startDate, DateTime endDate)
+        public List<Hotel> GetCheapHotel(DateTime startDate, DateTime endDate)
         {
-            int count = 0;
-            List<int> FareList = GetTotalFare(startDate, endDate);
-            FareList.Sort();
-            ///counting the number of days
-            while (startDate != endDate.AddDays(1))
-            {
-                count += 1;
-                startDate = startDate.AddDays(1);
-            }
-            ///checking for the name of hotel with low cost
+            List<Hotel> cheapHotels=new List<Hotel>();
+            List<int> fareList = new List<int>();
+            fareList=GetTotalFare(startDate, endDate);
+            fareList.Sort();
+            ///checking for the hotel with low cost
             foreach (Hotel hotel in hotelsList)
             {
-                if (hotel.weekDayRate == FareList[0] / count)
-                    Console.WriteLine(hotel.hotelName + " Total rates:" + FareList[0]);
-                    return hotel.hotelName;
+                if (hotel.totalFare ==fareList[0])
+                {
+                    Console.WriteLine(hotel.hotelName + " Total rates:" + hotel.totalFare);
+                    cheapHotels.Add(hotel);
+                }
             }
-            return null;
+            return cheapHotels;
         }
+        public override bool Equals(object obj)
+        {
+            // If obj passed is null
+            if (obj == null)
+                return false;
+
+            // If object passed is of other datatype
+            if (!(obj is Hotel))
+                return false;
+
+            // Convert the obj into Hotel Details object
+            Hotel hotel = ((Hotel)obj);
+
+            // return true if hotel name are same else false
+            return this.hotelName == hotel.hotelName && this.weekDayRate == hotel.weekDayRate && this.weekEndRate==hotel.weekEndRate;
+        }
+       /* public override int GetHashCode()
+        {
+            return totalFare.GetHashCode();
+        }*/
     }
 }
