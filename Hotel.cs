@@ -9,6 +9,7 @@ namespace HotelReservationSystem
         public string hotelName;
         public int weekDayRate;
         public int weekEndRate;
+        public int rating;
         public int totalFare;
         public List<Hotel> hotelsList = new List<Hotel>();
         public Hotel() { }
@@ -17,20 +18,23 @@ namespace HotelReservationSystem
             this.hotelName = name;
             if (name == "Lakewood")
             {
-                 weekDayRate = 110;
-                 weekEndRate = 90;
+                weekDayRate = 110;
+                weekEndRate = 90;
+                rating = 3;
             }
 
             if (name == "Bridgewood")
             {
-                 weekDayRate = 150;
-                 weekEndRate = 50;
+                weekDayRate = 150;
+                weekEndRate = 50;
+                rating = 4;
             }
             
             if (name == "Ridgewood")
             {
-                 weekDayRate = 220;
-                 weekEndRate = 150;
+                weekDayRate = 220;
+                weekEndRate = 150;
+                rating = 5;
             }
         }
         /// <summary>
@@ -48,10 +52,10 @@ namespace HotelReservationSystem
         public void DisplayHotels()
         {
             AddHotel();
-            Console.WriteLine("HotelName  WeekDayRate  WeekEndRate");
+            Console.WriteLine("HotelName  WeekDayRate  WeekEndRate   Rating");
             foreach (Hotel hotel in hotelsList)
             {
-                Console.WriteLine(hotel.hotelName + "   " + hotel.weekDayRate+"   "+hotel.weekEndRate);
+                Console.WriteLine(hotel.hotelName + "   " + hotel.weekDayRate+"   "+hotel.weekEndRate+"   "+hotel.rating);
             }
 
         }
