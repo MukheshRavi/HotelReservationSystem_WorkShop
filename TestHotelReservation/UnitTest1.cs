@@ -55,5 +55,16 @@ namespace TestHotelReservation
             Hotel actual = hotel.GetCheapHotelWithMaxRating(new DateTime(2020, 09, 11), new DateTime(2020, 09, 12));
             Assert.AreEqual(expected, actual);
         }
+        /// <summary>
+        /// This method gets  hotel with maximum Rating
+        /// </summary>
+        [Test]
+        public void GetBestHotelByRating()
+        {
+            Hotel expected = new Hotel("Ridgewood");
+            HotelRepository hotel = new HotelRepository();
+            Hotel actual = hotel.GetBestRatingHotel(new DateTime(2020, 09, 11), new DateTime(2020, 09, 12));
+            Assert.AreEqual(expected, actual);
+        }
     }
 }

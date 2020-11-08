@@ -40,11 +40,12 @@ namespace HotelReservationSystem
         /// <summary>
         /// This method adds Hotels to the Hotelslist
         /// </summary>
-        public void AddHotel()
+        public List<Hotel> AddHotel()
         {
             hotelsList.Add(new Hotel("Lakewood"));
             hotelsList.Add(new Hotel("Bridgewood"));
             hotelsList.Add(new Hotel("Ridgewood"));
+            return hotelsList;
         }
         /// <summary>
         /// This method displays Hotels with their names and rates for single day 
@@ -129,9 +130,5 @@ namespace HotelReservationSystem
             // return true if hotel name are same else false
             return this.hotelName == hotel.hotelName && this.weekDayRate == hotel.weekDayRate && this.weekEndRate==hotel.weekEndRate;
         }
-       /* public override int GetHashCode()
-        {
-            return totalFare.GetHashCode();
-        }*/
     }
 }
