@@ -7,18 +7,30 @@ namespace HotelReservationSystem
     public class Hotel
     {
         public string hotelName;
-        public int rate;
+        public int weekDayRate;
+        public int weekEndRate;
         public List<Hotel> hotelsList = new List<Hotel>();
         public Hotel() { }
         public Hotel(string name)
         {
             this.hotelName = name;
             if (name == "Lakewood")
-                rate = 110;
+            {
+                 weekDayRate = 110;
+                 weekEndRate = 90;
+            }
+
             if (name == "Bridgewood")
-                rate = 160;
+            {
+                 weekDayRate = 150;
+                 weekEndRate = 50;
+            }
+            
             if (name == "Ridgewood")
-                rate = 220;
+            {
+                 weekDayRate = 220;
+                 weekEndRate = 150;
+            }
         }
         /// <summary>
         /// This method adds Hotels to the Hotelslist
@@ -35,10 +47,10 @@ namespace HotelReservationSystem
         public void DisplayHotels()
         {
             AddHotel();
-            Console.WriteLine("HotelName  Rate");
+            Console.WriteLine("HotelName  WeekDayRate  WeekEndRate");
             foreach (Hotel hotel in hotelsList)
             {
-                Console.WriteLine(hotel.hotelName + " " + hotel.rate);
+                Console.WriteLine(hotel.hotelName + " " + hotel.weekDayRate+" "+hotel.weekEndRate);
             }
 
         }
@@ -58,7 +70,7 @@ namespace HotelReservationSystem
                 ///calculating total fare for all hotels in HotelsList
                 while (startDate != endDate.AddDays(1))
                 {
-                    totalFare += hotel.rate;
+                    totalFare += hotel.weekDayRate;
                     startDate = startDate.AddDays(1);
                 }
                 FareList.Add(totalFare);
@@ -87,7 +99,7 @@ namespace HotelReservationSystem
             ///checking for the name of hotel with low cost
             foreach (Hotel hotel in hotelsList)
             {
-                if (hotel.rate == FareList[0] / count)
+                if (hotel.weekDayRate == FareList[0] / count)
                     Console.WriteLine(hotel.hotelName + " Total rates:" + FareList[0]);
                     return hotel.hotelName;
             }
