@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace HotelReservationSystem
 {
@@ -8,8 +9,7 @@ namespace HotelReservationSystem
         {
             Console.WriteLine("Welcome to Hotel Reservation System");
             Hotel hotel = new Hotel();
-            ///Displays all hotels with their names and rates for the day
-            hotel.DisplayHotels();
+            hotel.GetCheapHotel(new DateTime(2020, 09, 10), new DateTime(2020, 09, 11));
         }
     }
 }
