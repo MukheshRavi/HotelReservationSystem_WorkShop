@@ -68,6 +68,8 @@ namespace HotelReservationSystem
                         rating = 5;
                     }
                     break;
+                default:
+                    throw new HotelReservationException(HotelReservationException.ExceptionType.INVALID_CUSTOMER_TYPE, "INVALID CUSTOMER TYPE");
             }
         }
         /// <summary>
@@ -133,6 +135,11 @@ namespace HotelReservationSystem
         /// <returns></returns>
         public List<Hotel> GetCheapHotel(DateTime startDate, DateTime endDate)
         {
+            // Check for proper start and end date
+            if (startDate > endDate)
+            {
+                throw new HotelReservationException(HotelReservationException.ExceptionType.INVALID_DATE_RANGE, "startDate is after endDate");
+            }
             List<Hotel> cheapHotels=new List<Hotel>();
             List<int> fareList = new List<int>();
             fareList=GetTotalFare(startDate, endDate);
