@@ -17,6 +17,11 @@ namespace HotelReservationSystem
         /// <returns></returns>
         public Hotel GetCheapHotelWithMaxRating(DateTime startDate, DateTime endDate)
         {
+            // Check for proper start and end date
+            if (startDate > endDate)
+            {
+                throw new HotelReservationException(HotelReservationException.ExceptionType.INVALID_DATE_RANGE, "startDate is after endDate");
+            }
             Hotel hotel = new Hotel();
             cheapHotels = hotel.GetCheapHotel(startDate, endDate);
             ///Loop to get maximum rating in cheap Hotels list
@@ -33,8 +38,20 @@ namespace HotelReservationSystem
             }
             return null;
         }
+        /// <summary>
+        /// This method Returns hotel with best rating
+        /// </summary>
+        /// <param name="startDate"></param>
+        /// <param name="endDate"></param>
+        /// <param name="type"></param>
+        /// <returns></returns>
         public Hotel GetBestRatingHotel(DateTime startDate, DateTime endDate, Hotel.CustomerType type)
         {
+            // Check for proper start and end date
+            if (startDate > endDate)
+            {
+                throw new HotelReservationException(HotelReservationException.ExceptionType.INVALID_DATE_RANGE, "startDate is after endDate");
+            }
             Hotel hotel = new Hotel();
             hotelsList = hotel.AddHotel(type);
             ///Loop to get maximum rating in Hotels list
