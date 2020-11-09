@@ -12,39 +12,72 @@ namespace HotelReservationSystem
         public int rating;
         public int totalFare;
         public List<Hotel> hotelsList = new List<Hotel>();
+        public enum CustomerType
+        {
+            REGULAR_CUSTOMER, REWARD_CUSTOMER
+        }
         public Hotel() { }
-        public Hotel(string name)
+        public Hotel(CustomerType type, string name)
         {
             this.hotelName = name;
-            if (name == "Lakewood")
+            switch (type)
             {
-                weekDayRate = 110;
-                weekEndRate = 90;
-                rating = 3;
-            }
+                case CustomerType.REGULAR_CUSTOMER:
 
-            if (name == "Bridgewood")
-            {
-                weekDayRate = 150;
-                weekEndRate = 50;
-                rating = 4;
-            }
-            
-            if (name == "Ridgewood")
-            {
-                weekDayRate = 220;
-                weekEndRate = 150;
-                rating = 5;
+                    if (name == "Lakewood")
+                    {
+                        weekDayRate = 110;
+                        weekEndRate = 90;
+                        rating = 3;
+                    }
+
+                    if (name == "Bridgewood")
+                    {
+                        weekDayRate = 150;
+                        weekEndRate = 50;
+                        rating = 4;
+                    }
+
+                    if (name == "Ridgewood")
+                    {
+                        weekDayRate = 220;
+                        weekEndRate = 150;
+                        rating = 5;
+                    }
+                    break;
+                case CustomerType.REWARD_CUSTOMER:
+
+                    if (name == "Lakewood")
+                    {
+                        weekDayRate = 80;
+                        weekEndRate = 80;
+                        rating = 3;
+                    }
+
+                    if (name == "Bridgewood")
+                    {
+                        weekDayRate = 110;
+                        weekEndRate = 50;
+                        rating = 4;
+                    }
+
+                    if (name == "Ridgewood")
+                    {
+                        weekDayRate = 100;
+                        weekEndRate = 40;
+                        rating = 5;
+                    }
+                    break;
             }
         }
         /// <summary>
         /// This method adds Hotels to the Hotelslist
         /// </summary>
-        public List<Hotel> AddHotel()
+        public List<Hotel> AddHotel(CustomerType type)
         {
-            hotelsList.Add(new Hotel("Lakewood"));
-            hotelsList.Add(new Hotel("Bridgewood"));
-            hotelsList.Add(new Hotel("Ridgewood"));
+            hotelsList.Add(new Hotel(type,"Lakewood"));
+            hotelsList.Add(new Hotel(type,"Bridgewood"));
+            hotelsList.Add(new Hotel(type,"Ridgewood"));
             return hotelsList;
         }
         /// <summary>
@@ -52,7 +85,8 @@ namespace HotelReservationSystem
         /// </summary>
         public void DisplayHotels()
         {
-            AddHotel();
+            AddHotel(CustomerType.REGULAR_CUSTOMER);
+            AddHotel(CustomerType.REWARD_CUSTOMER);
             Console.WriteLine("HotelName  WeekDayRate  WeekEndRate   Rating");
             foreach (Hotel hotel in hotelsList)
             {
@@ -68,7 +102,7 @@ namespace HotelReservationSystem
         /// <returns></returns>
         public List<int> GetTotalFare(DateTime startDate, DateTime endDate)
         {
-            AddHotel();
+            AddHotel(CustomerType.REGULAR_CUSTOMER);
             List<int> fareList = new List<int>();
             DateTime start = startDate;
             // Continue loop till all the dates are covered

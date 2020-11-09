@@ -33,10 +33,10 @@ namespace HotelReservationSystem
             }
             return null;
         }
-        public Hotel GetBestRatingHotel(DateTime startDate, DateTime endDate)
+        public Hotel GetBestRatingHotel(DateTime startDate, DateTime endDate, Hotel.CustomerType type)
         {
             Hotel hotel = new Hotel();
-            hotelsList = hotel.AddHotel();
+            hotelsList = hotel.AddHotel(type);
             ///Loop to get maximum rating in Hotels list
             foreach (Hotel h in hotelsList)
             {

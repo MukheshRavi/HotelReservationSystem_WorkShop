@@ -12,7 +12,7 @@ namespace HotelReservationSystem
             HotelRepository hotelRepository = new HotelRepository();
             // hotel.GetCheapHotel(new DateTime(2020, 09, 10), new DateTime(2020, 09, 11));
             hotel.DisplayHotels();
-            hotelRepository.GetBestRatingHotel(new DateTime(2020, 09, 10), new DateTime(2020, 09, 11));
+            hotelRepository.GetBestRatingHotel(new DateTime(2020, 09, 10), new DateTime(2020, 09, 11), Hotel.CustomerType.REGULAR_CUSTOMER);
         }
     }
 }
